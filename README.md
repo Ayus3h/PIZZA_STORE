@@ -1,90 +1,86 @@
 # PIZZA_STORE
 
-## Sprint I Objective 1 - Database Schema
+A comprehensive MERN (MongoDB, Express.js, React, Node.js) stack solution for online food ordering and restaurant management. This README reflects the final project state, incorporating all sprint objectives and advanced backend patterns.
 
-This project uses MongoDB with Mongoose and contains the main schema models for the pizza store application.
+## Features Overview (Final Project Status)
 
-### 1. User Schema
-File: backend/models/User.js
-- Stores user information: name, email, password, role
-- Roles: CUSTOMER and ADMIN
+### Customer Features
+- **Dynamic Menu:** Category filters (Pizza, Sides, Beverages, Combos, etc.), item-name search, and responsive layout.
+- **Order Management:** Create new orders, choose payment (Cash, Card, UPI) and delivery modes (Home Delivery, Takeaway), and cancel pending orders.
+- **Real-time Feedback:** Order status updates (Pending, Accepted, Preparing, Out for Delivery, Delivered) via a dedicated Message Service.
+- **Profile Management:** Secure user profile panel with editable fields.
 
-### 2. Item Schema
-File: backend/models/Item.js
-- Stores menu items: name, description, price, category, imageUrl
-- Used by the customer menu and admin inventory management
+### Admin Control Panel
+- **Dashboard Metrics:** Live activity monitoring, monthly revenue tracking, and order counting.
+- **Menu Inventory (CRUD):** Add, edit, or delete menu items with support for local image uploads and URL previews.
+- **Live Order Queue:** Accept/Reject orders, push status updates with custom messages to customers.
+- **Billing/Invoicing:** Automated digital bill generation and printing capabilities.
 
-### 3. Order Schema
-File: backend/models/Order.js
-- Stores customer orders: user, orderItems, totalAmount, paymentOption, deliveryMode, orderStatus
-- Links a customer to one or more ordered menu items
+## Technology Stack
+- **Frontend:** React, Vite, Bootstrap (Responsive UI), CSS Media Queries
+- **Backend:** Node.js, Express.js, RESTful APIs (Layered architecture with Controllers, Services, DTOs)
+- **Database:** MongoDB, Mongoose (with in-memory fallback via MongoMemoryServer for easy testing)
+- **Security:** JWT-based authentication and Role-based access control (Admin vs. Customer)
+- **Testing:** Vitest and React Testing Library (Component tests), Playwright (End-to-End smoke testing)
 
-### Relationships
-- One User can place many Orders.
-- One Order can contain many Items.
-- Each order item references an Item by its MongoDB ObjectId.
+## Database Architecture
 
-### Simple ER Diagram
+### Core Entities
+1. **User Schema:** Manages Customer and Admin roles, securely stores credentials.
+2. **Item Schema:** Manages menu items with prices, categories, and image URLs.
+3. **Order Schema:** Links users to multiple items, tracks total amount, payment option, delivery mode, and live order status.
+
+### Entity Relationships
 User 1 --- * Order
 Order * --- * Item
 
-This structure is implemented in the codebase and satisfies the sprint objective for database schema design.
+## API Endpoints Overview
 
-## Sprint II Objectives
+### Auth (`/api/auth`)
+- `POST /register` - Register a new user
+- `POST /login` - Authenticate user and get JWT token
+- `GET /me` - Get current user profile details
+- `PUT /me` - Update user profile (Name, Phone, Email)
 
-The current MERN stack implementation already covers the major Sprint II goals listed below.
+### Items (`/api/items`)
+- `GET /` - Fetch all menu items
+- `POST /` - Add a new menu item (Admin only)
+- `PUT /:id` - Update an existing item (Admin only)
+- `DELETE /:id` - Delete an item (Admin only)
 
-1. Search functionality based on different criteria
-   - Implemented in the customer dashboard with category filters and item-name search.
-
-2. Menu items CRUD for Admin
-   - Admin dashboard supports add, edit, and delete menu items.
-
-3. Create / cancel order from user
-   - Customer dashboard allows placing orders and canceling pending orders.
-
-4. Billing option (generate for Owner and view for User)
-   - Admin dashboard can generate bills/invoices; order details are available to users through the dashboard flow.
-
-5. JWT-based authentication
-   - JWT is implemented in the backend using Express middleware and token validation.
-   - Note: this project uses JWT in the MERN stack instead of Spring Security, which is the equivalent authentication mechanism in this application.
-
-6. Component and end-to-end testing
-   - Added frontend testing support using Vitest + React Testing Library for component tests.
-   - Added Playwright setup for end-to-end smoke testing.
-
-### Verification
-- Frontend build: npm run build
-- Component tests: npm run test
-- End-to-end smoke test: npm run test:e2e
+### Orders (`/api/orders`)
+- `POST /` - Place a new order
+- `GET /myorders` - Fetch logged-in user's orders
+- `GET /all` - Fetch all orders across the platform (Admin only)
+- `GET /revenue` - Fetch current monthly revenue and order metrics (Admin only)
+- `PUT /:id/cancel` - Cancel a pending order (Customer)
+- `PUT /:id/status` - Update order status and push custom messages (Admin only)
 
 ## Project Requirement Checklist
 
-The current project satisfies the major implementation requirements from the assignment brief:
+The project successfully satisfies all major requirements and planned sprint objectives:
+- [x] MongoDB + Mongoose backend data storage for users, items, and orders.
+- [x] Node.js + Express.js REST APIs with robust validation and DTO transformations.
+- [x] React SPA with login, register, admin, and customer dashboards.
+- [x] JWT-based session handling with local storage.
+- [x] Client-side validation in login, registration, and checkout forms.
+- [x] Responsive UI with Bootstrap and extra CSS media queries for different screen sizes.
+- [x] Component and end-to-end testing support with Vitest and Playwright.
+- [x] Real-time order tracking and invoice generation.
 
-- MongoDB + Mongoose backend data storage for users, items, and orders
-- Node.js + Express.js REST APIs for auth, menu, and orders
-- React SPA with login, register, admin, and customer dashboards
-- JWT-based session handling with local storage
-- Client-side validation in login and registration forms
-- Responsive UI with Bootstrap and extra CSS media queries for different screen sizes
-- Component and end-to-end testing support with Vitest and Playwright
+## How to Run & Test the Application
 
-## Sprint III Objectives
+1. **Install Dependencies:** 
+   Run `npm install` in both the `frontend` and `backend` directories.
+2. **Start the Backend Server:** 
+   Run `npm start` or `node server.js` inside the `backend` directory. 
+   *(Note: It will automatically connect to MongoDB or fallback to an in-memory database and seed sample items).*
+3. **Start the Frontend Application:** 
+   Run `npm run dev` inside the `frontend` directory.
+4. **Customer View:** Register a new user with the role "Customer" to browse the menu and place orders.
+5. **Admin View:** Register a new user with the role "Admin". Logging in will redirect you to the Admin Dashboard where you can manage menu items, update order statuses, and generate bills.
 
-The project includes the following Sprint III enhancements:
-
-1. DTO and service-layer structure for order handling
-2. Controller-driven REST API flow for menu and order operations
-3. Message service for customer-friendly order status updates
-4. Payment mode validation service for supported checkout options
-5. Frontend-backend integration for real order and menu operations
-6. Extra feature: a responsive Contact & Support section on the home page
-
-These improvements are implemented in the backend service files and the refreshed landing page UI.
-
-## How to Test the Application
-1. **Customer View:** Register a new user with the role "Customer" to browse the menu and place orders.
-2. **Admin View:** Register a new user with the role "Admin". Logging in will redirect you to the Admin Dashboard where you can add/edit menu items, update order statuses, and generate bills.
-
+### Verification & Testing Commands (Frontend)
+- **Build project:** `npm run build`
+- **Run component tests:** `npm run test`
+- **Run E2E smoke tests:** `npm run test:e2e`

@@ -8,8 +8,6 @@ const orderSchema = new mongoose.Schema({
             quantity: { type: Number, required: true },
             price: { type: Number, required: true },
             item: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Item' },
-            addOnIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Addon' }],
-            addOnsExtraPrice: { type: Number, required: true, default: 0 },
         }
     ],
 

@@ -20,8 +20,6 @@ const createOrder = async ({ userId, orderItems, totalAmount, paymentOption, del
     user: userId,
     orderItems: orderItems.map((oi) => ({
       ...oi,
-      addOnsExtraPrice: Number(oi.addOnsExtraPrice || 0),
-      addOnIds: Array.isArray(oi.addOnIds) ? oi.addOnIds : [],
     })),
     totalAmount,
     paymentOption,

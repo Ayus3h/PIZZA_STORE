@@ -23,9 +23,6 @@ app.use('/api/items', itemRoutes);
 const orderRoutes = require('./routes/orderRoutes');
 app.use('/api/orders', orderRoutes);
 
-const addonRoutes = require('./routes/addonRoutes');
-app.use('/api/addons', addonRoutes);
-
 
 const seedItemsIfNeeded = async () => {
     const existingItems = await Item.find({});
