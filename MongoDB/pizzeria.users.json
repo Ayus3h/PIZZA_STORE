@@ -1,0 +1,31 @@
+[{
+  "_id": {
+    "$oid": "6a23a9b4ef9920ba51d3c88f"
+  },
+  "name": "Super Admin",
+  "email": "superadmin@pizza.com",
+  "password": "$2b$10$lIEhXRuOvvFObG3QeR1mt.TW5Rw252ODwGMER79Uj7ECyMIfbKH4u",
+  "role": "ADMIN",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2a3f1dcc4581d471aae369"
+  },
+  "name": "Admin",
+  "email": "superadmin@gmail.com",
+  "password": "$2b$10$pBNUahbRCdUXC1RoCXOe4.jabfaVEw31cRSlxnwUeCoAluVLl/wPy",
+  "role": "ADMIN",
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2a4cad4f7a8b32528543a2"
+  },
+  "name": "Ayush",
+  "email": "ayush@gmail.com",
+  "password": "$2b$10$TuUe0UzJuEYxa1vja8Z5JOnaZ89MJOC7CMq2ZlzfinEIn/EFNU80a",
+  "role": "CUSTOMER",
+  "__v": 0,
+  "phone": ""
+}]

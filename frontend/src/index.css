@@ -40,3 +40,23 @@ button:hover { transform: translateY(-1px); }
   .navbar .d-flex { width: 100%; }
 }
 
+/* Mobile category dropdown (dark mode) */
+.mobile-category-dropdown .dropdown-toggle {
+  color: #fff !important;
+}
+
+.mobile-category-dropdown .dropdown-menu {
+  background: #121212 !important;
+  border-color: #343a40 !important;
+}
+
+.mobile-category-dropdown .dropdown-item {
+  color: #fff !important;
+}
+
+.mobile-category-dropdown .dropdown-item:hover,
+.mobile-category-dropdown .dropdown-item:focus {
+  background: #1f1f1f !important;
+  color: #fff !important;
+}
+

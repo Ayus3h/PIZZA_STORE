@@ -1,0 +1,270 @@
+[{
+  "_id": {
+    "$oid": "6a23bff917eadba58c37ccfd"
+  },
+  "name": "Margherita",
+  "description": "Classic delight with 100% real mozzarella cheese",
+  "price": 250,
+  "category": "pizza",
+  "imageUrl": "https://images.unsplash.com/photo-1574071318508-1cdbab80d002?w=500",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T06:36:41.109Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-06T06:36:41.109Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a23bff917eadba58c37ccfe"
+  },
+  "name": "Pepperoni",
+  "description": "Double pepperoni with extra cheese",
+  "price": 300,
+  "category": "pizza",
+  "imageUrl": "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T06:36:41.111Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-10T04:54:00.348Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a23fb26a6c83dc36f6cc137"
+  },
+  "name": "Pepperoni Feast",
+  "description": "Double pepperoni with extra cheese and smoky sauce.",
+  "price": 350,
+  "category": "non-veg pizza",
+  "imageUrl": "https://images.unsplash.com/photo-1628840042765-356cda07504e?w=500",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T10:49:10.640Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-06T10:49:10.640Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a23fb26a6c83dc36f6cc138"
+  },
+  "name": "Veggie Supreme",
+  "description": "Capsicum, onion, olives, mushrooms, and mozzarella.",
+  "price": 320,
+  "category": "veg pizza",
+  "imageUrl": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T10:49:10.641Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-06T10:49:10.641Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a23fb26a6c83dc36f6cc139"
+  },
+  "name": "Chicken BBQ",
+  "description": "BBQ chicken, onions, and a bold smoky flavour.",
+  "price": 380,
+  "category": "non-veg pizza",
+  "imageUrl": "https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?w=500",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T10:49:10.641Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-06T10:49:10.641Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a23fb26a6c83dc36f6cc13a"
+  },
+  "name": "Garlic Bread",
+  "description": "Crispy bread topped with garlic butter and herbs.",
+  "price": 120,
+  "category": "sides",
+  "imageUrl": "https://images.unsplash.com/photo-1751199592465-f142293a8cc6?q=80&w=2084&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T10:49:10.641Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-06T10:57:51.021Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a23fb26a6c83dc36f6cc13b"
+  },
+  "name": "Potato Wedges",
+  "description": "Golden wedges with pepper salt seasoning.",
+  "price": 140,
+  "category": "sides",
+  "imageUrl": "https://images.unsplash.com/photo-1529042410759-befb1204b468?w=500",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T10:49:10.641Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-06T10:49:10.641Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a23fb26a6c83dc36f6cc13c"
+  },
+  "name": "Coke",
+  "description": "Chilled refreshing soft drink.",
+  "price": 60,
+  "category": "beverages",
+  "imageUrl": "https://images.unsplash.com/photo-1521305916504-4a1121188589?w=500",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T10:49:10.641Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-06T10:49:10.641Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a23fb26a6c83dc36f6cc13d"
+  },
+  "name": "Mojito Cooler",
+  "description": "Fresh mint and lime sparkler.",
+  "price": 90,
+  "category": "beverages",
+  "imageUrl": "https://images.unsplash.com/photo-1551024709-8f23befc6f87?w=500",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T10:49:10.642Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-06T10:49:10.642Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a23fb26a6c83dc36f6cc13e"
+  },
+  "name": "Family Combo",
+  "description": "A pizza, garlic bread, and drink combo for sharing.",
+  "price": 450,
+  "category": "combo",
+  "imageUrl": "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=500",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T10:49:10.642Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-06T10:49:10.642Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a23fb26a6c83dc36f6cc13f"
+  },
+  "name": "Party Pack",
+  "description": "Two pizzas, wedges, and drinks for the whole group.",
+  "price": 620,
+  "category": "combo",
+  "imageUrl": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T10:49:10.642Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-06T10:49:10.642Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a23fb26a6c83dc36f6cc140"
+  },
+  "name": "Choco Lava",
+  "description": "Warm chocolate cake with molten center.",
+  "price": 130,
+  "category": "others",
+  "imageUrl": "https://images.unsplash.com/photo-1606313564200-e75d5e30476c?w=500",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T10:49:10.642Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-06T10:49:10.642Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a23fb26a6c83dc36f6cc141"
+  },
+  "name": "Spicy Paneer Burst",
+  "description": "A fresh launch with spicy paneer and fiery sauce.",
+  "price": 340,
+  "category": "new launches",
+  "imageUrl": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T10:49:10.642Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-06T10:49:10.642Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a23fb26a6c83dc36f6cc142"
+  },
+  "name": "Best Seller Box",
+  "description": "A crowd favourite packed with cheesy goodness.",
+  "price": 410,
+  "category": "bestsellers",
+  "imageUrl": "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T10:49:10.642Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-06T10:49:10.642Z"
+  }
+},
+{
+  "_id": {
+    "$oid": "6a23fb26a6c83dc36f6cc143"
+  },
+  "name": "Loaded Cheesy Slice",
+  "description": "Extra cheese, herbs, and signature seasoning.",
+  "price": 290,
+  "category": "bestsellers",
+  "imageUrl": "https://images.unsplash.com/photo-1513104890138-7c749659a591?w=500",
+  "isAvailable": true,
+  "__v": 0,
+  "createdAt": {
+    "$date": "2026-06-06T10:49:10.642Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-06T10:49:10.642Z"
+  }
+}]

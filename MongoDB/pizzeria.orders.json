@@ -1,0 +1,66 @@
+[{
+  "_id": {
+    "$oid": "6a2a4cb64f7a8b32528543a3"
+  },
+  "user": {
+    "$oid": "6a2a4cad4f7a8b32528543a2"
+  },
+  "orderItems": [
+    {
+      "name": "Margherita",
+      "quantity": 1,
+      "price": 250,
+      "item": {
+        "$oid": "6a23bff917eadba58c37ccfd"
+      },
+      "_id": {
+        "$oid": "6a2a4cb64f7a8b32528543a4"
+      }
+    }
+  ],
+  "totalAmount": 250,
+  "paymentOption": "Cash on Delivery",
+  "deliveryMode": "Home Delivery",
+  "orderStatus": "Delivered",
+  "statusMessage": "Your order status has been updated.",
+  "createdAt": {
+    "$date": "2026-06-11T05:50:46.971Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-11T05:52:12.527Z"
+  },
+  "__v": 0
+},
+{
+  "_id": {
+    "$oid": "6a2a962333a48b65ac80da9b"
+  },
+  "user": {
+    "$oid": "6a2a4cad4f7a8b32528543a2"
+  },
+  "orderItems": [
+    {
+      "name": "Pepperoni",
+      "quantity": 1,
+      "price": 300,
+      "item": {
+        "$oid": "6a23bff917eadba58c37ccfe"
+      },
+      "_id": {
+        "$oid": "6a2a962333a48b65ac80da9c"
+      }
+    }
+  ],
+  "totalAmount": 300,
+  "paymentOption": "Cash on Delivery",
+  "deliveryMode": "Home Delivery",
+  "orderStatus": "Preparing",
+  "statusMessage": "Your order status has been updated.",
+  "createdAt": {
+    "$date": "2026-06-11T11:04:03.453Z"
+  },
+  "updatedAt": {
+    "$date": "2026-06-11T11:05:00.599Z"
+  },
+  "__v": 0
+}]

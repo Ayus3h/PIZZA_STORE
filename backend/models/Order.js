@@ -7,9 +7,12 @@ const orderSchema = new mongoose.Schema({
             name: { type: String, required: true },
             quantity: { type: Number, required: true },
             price: { type: Number, required: true },
-            item: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Item' }
+            item: { type: mongoose.Schema.Types.ObjectId, required: true, ref: 'Item' },
+            addOnIds: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Addon' }],
+            addOnsExtraPrice: { type: Number, required: true, default: 0 },
         }
     ],
+
     totalAmount: { type: Number, required: true },
     // Payment and Delivery Modes
     paymentOption: { type: String, required: true, enum: ['Cash on Delivery', 'Credit Card', 'UPI'] },

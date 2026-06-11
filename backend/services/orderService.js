@@ -18,12 +18,17 @@ const createOrder = async ({ userId, orderItems, totalAmount, paymentOption, del
 
   const order = await Order.create({
     user: userId,
-    orderItems,
+    orderItems: orderItems.map((oi) => ({
+      ...oi,
+      addOnsExtraPrice: Number(oi.addOnsExtraPrice || 0),
+      addOnIds: Array.isArray(oi.addOnIds) ? oi.addOnIds : [],
+    })),
     totalAmount,
     paymentOption,
     deliveryMode,
     orderStatus: 'Pending',
   });
+
 
   return toOrderResponseDto(order);
 };

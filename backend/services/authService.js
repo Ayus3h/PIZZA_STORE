@@ -6,15 +6,16 @@ const generateToken = (id, role) => {
 };
 
 const registerUser = async (userData) => {
-    const { name, email, password, role } = userData;
+    const { name, email, password, role, phone } = userData;
     const userExists = await User.findOne({ email });
     if (userExists) throw new Error('User already exists');
 
-    const user = await User.create({ name, email, password, role });
+    const user = await User.create({ name, email, password, role, phone });
     return {
         _id: user._id,
         name: user.name,
         email: user.email,
+        phone: user.phone,
         role: user.role,
         token: generateToken(user._id, user.role)
     };
@@ -27,6 +28,7 @@ const loginUser = async (email, password) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            phone: user.phone,
             role: user.role,
             token: generateToken(user._id, user.role)
         };
