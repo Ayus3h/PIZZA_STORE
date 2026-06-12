@@ -22,12 +22,15 @@ const Register = () => {
     },
     validationSchema: Yup.object({
       name: Yup.string()
+        .min(3, 'Name must be at least 3 characters')
         .required('Required'),
-      email: Yup.string()
+      
+        email: Yup.string()
         .email('Invalid email address')
         .matches(/@gmail\.com$/, 'Email must be a @gmail.com address')
         .required('Required'),
-      password: Yup.string()
+      
+        password: Yup.string()
         .min(8, 'Password must be at least 8 characters')
         .matches(/^\S*$/, 'Password cannot contain spaces')
         .required('Required'),

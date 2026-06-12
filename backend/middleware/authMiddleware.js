@@ -29,7 +29,7 @@ const protect = async (req, res, next) => {
     }
 };
 
-// 2: Is the logged-in user an Admin?
+// 2: Is the logged-in user an Admin
 const admin = (req, res, next) => {
     if (req.user && req.user.role === 'ADMIN') {
         next(); // User is an admin, let them through

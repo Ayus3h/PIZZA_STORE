@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import {
@@ -13,6 +14,7 @@ import {
   Alert,
   Navbar,
   DropdownButton,
+  Dropdown,
   ProgressBar,
   Modal,
 } from 'react-bootstrap';
@@ -22,7 +24,8 @@ const API_BASE = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const CustomerDashboard = () => {
   const [items, setItems] = useState([]);
-  const [filteredItems, setFilteredItems] = useState([]);
+
+
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('');
@@ -77,18 +80,18 @@ const CustomerDashboard = () => {
 
       return () => clearInterval(intervalId);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    // disable-next-line react-hooks/exhaustive-deps
   }, [navigate]);
 
   const fetchItems = async () => {
     try {
       const response = await axios.get(`${API_BASE}/api/items`);
       setItems(response.data);
-      setFilteredItems(response.data);
     } catch (error) {
       console.error('Error fetching items', error);
     }
   };
+
 
   const fetchOrders = async () => {
     try {
@@ -140,19 +143,29 @@ const CustomerDashboard = () => {
     }
   };
 
-  useEffect(() => {
-    let result = [...items];
-    if (selectedCategory !== 'all') result = result.filter((item) => item.category === selectedCategory);
-    if (searchQuery)
-      result = result.filter((item) => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
+  const filteredItems = useMemo(() => {
+    let result = items || [];
 
-    if (sortBy === 'price-asc') result.sort((a, b) => a.price - b.price);
-    else if (sortBy === 'price-desc') result.sort((a, b) => b.price - a.price);
-    else if (sortBy === 'name-asc') result.sort((a, b) => a.name.localeCompare(b.name));
-    else if (sortBy === 'name-desc') result.sort((a, b) => b.name.localeCompare(a.name));
+    if (selectedCategory !== 'all') {
+      result = result.filter((item) => item.category === selectedCategory);
+    }
 
-    setFilteredItems(result);
-  }, [searchQuery, selectedCategory, sortBy, items]);
+    if (searchQuery) {
+      const q = searchQuery.toLowerCase();
+      result = result.filter((item) => (item.name || '').toLowerCase().includes(q));
+    }
+
+    // Avoid mutating the array in-place.
+    result = [...result];
+
+    if (sortBy === 'price-asc') result = result.sort((a, b) => a.price - b.price);
+    else if (sortBy === 'price-desc') result = result.sort((a, b) => b.price - a.price);
+    else if (sortBy === 'name-asc') result = result.sort((a, b) => (a.name || '').localeCompare(b.name || ''));
+    else if (sortBy === 'name-desc') result = result.sort((a, b) => (b.name || '').localeCompare(a.name || ''));
+
+    return result;
+  }, [items, selectedCategory, searchQuery, sortBy]);
+
 
   const addToCart = (item) => {
     const existingIndex = cart.findIndex((cartItem) => cartItem._id === item._id);
@@ -242,6 +255,70 @@ const CustomerDashboard = () => {
     }
   };
 
+  const pickRandom = (arr, count = 1) => {
+    const copy = [...arr];
+    copy.sort(() => Math.random() - 0.5);
+    return copy.slice(0, count);
+  };
+
+  const normalizeEmotionToCategories = (emotion) => {
+    // Simple, deterministic mapping (no Gemini needed for cart correctness)
+    // Ensure categories exist in your DB/items.
+    switch (emotion) {
+      case 'sad':
+        return ['comfort', 'combo', 'pizza', 'bestsellers', 'others', 'all'];
+      case 'lucky':
+        return ['bestsellers', 'combo', 'new launches', 'pizza', 'all'];
+      case 'surprise':
+        return ['new launches', 'bestsellers', 'combo', 'pizza', 'all'];
+      default:
+        return ['all'];
+    }
+  };
+
+  const handleEmotionRecommendation = (emotion) => {
+    try {
+      // Use `items` as source , so recommendation still works
+      // even if user is filtered by category/search.
+      const source = items || [];
+      if (source.length === 0) return;
+
+      const preferredCategories = normalizeEmotionToCategories(emotion);
+
+      // Filter by the first matching category that exists in the data.
+      const byCategory = (cat) =>
+        source.filter((it) => String(it.category || '').toLowerCase() === String(cat || '').toLowerCase());
+
+      let candidates = [];
+      for (const cat of preferredCategories) {
+        if (cat === 'all') continue;
+        const match = byCategory(cat);
+        if (match.length) {
+          candidates = match;
+          break;
+        }
+      }
+
+      // Fallback: if none found, use everything.
+      if (!candidates.length) candidates = source;
+
+      // Pick 2 items for better “start cart” experience.
+      const chosen = pickRandom(candidates, 2);
+
+      chosen.forEach((item) => addToCart(item));
+
+      const label =
+        emotion === 'sad' ? 'Feeling Sad' : emotion === 'lucky' ? 'Feeling Lucky' : 'Surprise Me';
+      pushNotification(`🎭 ${label}: Added ${chosen.length} recommendations to your cart!`, 'success');
+
+      // Also update filters so user sees the added items in the list.
+      if (chosen[0]?.category) setSelectedCategory(chosen[0].category);
+    } catch (err) {
+      console.error('handleEmotionRecommendation error:', err);
+      pushNotification('Unable to get recommendation. Please try again.', 'danger');
+    }
+  };
+
   return (
     <div
       style={{
@@ -320,23 +397,71 @@ const CustomerDashboard = () => {
               </div>
 
               <div className="d-md-none">
-                <DropdownButton
-                  variant={darkMode ? 'outline-light' : 'outline-dark'}
-                  title={`🍔 Category: ${selectedCategory.toUpperCase()}`}
-                  className="w-100 mobile-category-dropdown"
-                >
-                  {categories.map((cat) => (
-                    <DropdownButton.Item
-                      key={cat}
-                      onClick={() => setSelectedCategory(cat)}
-                      active={selectedCategory === cat}
-                      className="text-capitalize"
-                    >
-                      {cat}
-                    </DropdownButton.Item>
-                  ))}
-                </DropdownButton>
+                  <DropdownButton
+                    variant={darkMode ? 'outline-light' : 'outline-dark'}
+                    title={`🍔 Category: ${(selectedCategory ?? 'all').toString().toUpperCase()}`}
+                    className="w-100 mobile-category-dropdown"
+                  >
+                    {categories.map((cat) => (
+                      <Dropdown.Item
+                        key={cat}
+                        onClick={() => setSelectedCategory(cat)}
+                        className="text-capitalize"
+                      >
+                        {cat}
+                      </Dropdown.Item>
+                    ))}
+                  </DropdownButton>
               </div>
+            </div>
+
+            {/* Emotion Recommendation Section */}
+            <div className={`p-3 rounded shadow-sm mb-4 ${darkMode ? 'bg-dark text-white' : 'bg-white'}`}>
+              <h6 className="fw-bold mb-3 text-center">Confused? Let your mood decide!</h6>
+              <Row className="g-2">
+                <Col xs={4}>
+                  <Card 
+                    className={`text-center h-100 shadow-sm border-0 ${darkMode ? 'bg-secondary text-white' : 'bg-light'}`}
+                    style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
+                    onClick={() => handleEmotionRecommendation('sad')}
+                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                  >
+                    <Card.Body className="p-2 d-flex flex-column justify-content-center">
+                      <div className="fs-2 mb-1">😢</div>
+                      <small className="fw-bold">Feeling Sad</small>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col xs={4}>
+                  <Card 
+                    className={`text-center h-100 shadow-sm border-0 ${darkMode ? 'bg-secondary text-white' : 'bg-light'}`}
+                    style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
+                    onClick={() => handleEmotionRecommendation('lucky')}
+                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                  >
+                    <Card.Body className="p-2 d-flex flex-column justify-content-center">
+                      <div className="fs-2 mb-1">🍀</div>
+                      <small className="fw-bold">Feeling Lucky</small>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col xs={4}>
+                  <Card 
+                    className={`text-center h-100 shadow-sm border-0 ${darkMode ? 'bg-secondary text-white' : 'bg-light'}`}
+                    style={{ cursor: 'pointer', transition: 'transform 0.2s' }}
+                    onClick={() => handleEmotionRecommendation('surprise')}
+                    onMouseEnter={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+                    onMouseLeave={(e) => e.currentTarget.style.transform = 'scale(1)'}
+                  >
+                    <Card.Body className="p-2 d-flex flex-column justify-content-center">
+                      <div className="fs-2 mb-1">🎁</div>
+                      <small className="fw-bold">Surprise Me</small>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              </Row>
             </div>
 
             <Row>
